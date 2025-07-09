@@ -1,38 +1,27 @@
 <script setup>
-import { reactive, ref } from "vue";
-// ref sử dụng 1 đối tượng và 1 thuộc tính
-// truy cập thuộc tính bằng cách .value
-const count = ref(0);
-count.value = count.value + 1;
-
-// reactive sử dụng 1 đối tượng, trong đó có nhiều thuộc tính
-// truy cập thuộc tính bằng cách .thuộc_tính
-const count1 = reactive({
-  title: "Hello World",
-  author: "Dinh Van Thuan",
-  age: 18,
-});
-
-count1.age += 1;
-console.log("count1", count1.title, count1.author, count1.age);
+import { ref } from "vue";
+const count = ref(1);
+const increase = () => {
+  count.value++;
+  console.log("count", count.value);
+};
+const reduce = () => {
+  count.value--;
+  console.log("count", count.value);
+};
+const submitForm = (e) => {
+  // e.preventDefault(); ngăn chặn sự kiện mặc định của form tránh reload trang
+  count.value += 100;
+};
 </script>
 
 <template>
-  <div class="red">This is {{ count }}</div>
-  <div class="blue">
-    This is {{ count1.title }} {{ count1.author }} {{ count1.age }}
-  </div>
+  <div>Count: {{ count }}</div>
+  <button v-on:click="increase">Increase</button>
+  <button @click="reduce">Reduce</button>
+  <form @submit.prevent="submitForm">
+    <button type="submit">Increase x100</button>
+  </form>
 </template>
 
-<style scoped>
-.red {
-  color: red;
-  font-size: 20px;
-  font-weight: bold;
-}
-.blue {
-  color: blue;
-  font-size: 18px;
-  font-weight: normal;
-}
-</style>
+<style scoped></style>
