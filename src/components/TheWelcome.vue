@@ -1,27 +1,18 @@
 <script setup>
 import { ref } from "vue";
-const count = ref(1);
-const increase = () => {
-  count.value++;
-  console.log("count", count.value);
-};
-const reduce = () => {
-  count.value--;
-  console.log("count", count.value);
-};
-const submitForm = (e) => {
-  // e.preventDefault(); ngăn chặn sự kiện mặc định của form tránh reload trang
-  count.value += 100;
-};
+
+const textInput = ref("");
+console.log("Rerender Component", textInput.value);
+
+const name = ref("");
 </script>
 
 <template>
-  <div>Count: {{ count }}</div>
-  <button v-on:click="increase">Increase</button>
-  <button @click="reduce">Reduce</button>
-  <form @submit.prevent="submitForm">
-    <button type="submit">Increase x100</button>
-  </form>
+  <div>Text: {{ textInput }}</div>
+  <input type="text" v-model="textInput" />
+  <br />
+  <input v-model.trim="name" placeholder="Nhập tên của bạn" />
+  <p>Xin chào {{ name }}!</p>
 </template>
 
 <style scoped></style>
