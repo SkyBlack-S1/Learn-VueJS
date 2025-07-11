@@ -1,7 +1,6 @@
 <template>
   <div class="about">
-    <router-view></router-view>
-    <RouterLink to="/about/user">Address</RouterLink>
+    <h1>This is a Address Page</h1>
   </div>
 </template>
 
