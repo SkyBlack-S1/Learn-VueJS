@@ -1,6 +1,6 @@
 <!-- Parent -->
 <script setup>
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import TheWelcome from "../components/TheWelcome.vue";
 
 const count = ref(10);
@@ -21,6 +21,8 @@ const products = ref([
   { id: 5, name: "Juice", category: "drink", price: 500 },
 ]);
 
+const todos = ref([]);
+
 const handChangeCategoryProduct = (value) => {
   categoryProduct.value = value;
 };
@@ -30,11 +32,19 @@ const productsFilter = computed(() => {
     (item) => item.category === categoryProduct.value
   );
 });
+
+onMounted(() => {
+  // Hàm này luôn chạy sau template
+  fetch("https://jsonplaceholder.typicode.com/todos")
+    .then((response) => response.json())
+    .then((json) => (todos.value = json));
+});
 </script>
 
 <template>
   <main>
     <!-- <TheWelcome :countView="count" @handle-increase="handleIncrease" /> -->
+    {{ console.log("Template Render") }}
     <button @click="handChangeCategoryProduct('food')">Hiển thị food</button>
     <button @click="handChangeCategoryProduct('drink')">Hiển thị drink</button>
     <div v-if="categoryProduct === 'food'">Danh sach Food</div>
@@ -45,6 +55,13 @@ const productsFilter = computed(() => {
         <div>
           <div>{{ product.name }} {{ product.price }}</div>
         </div>
+      </div>
+    </div>
+    <!-- todos view -->
+    <div>
+      <h2>Todos</h2>
+      <div v-for="todo in todos">
+        <div>{{ todo.title }}</div>
       </div>
     </div>
   </main>
