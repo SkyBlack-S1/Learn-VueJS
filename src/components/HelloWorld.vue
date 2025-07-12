@@ -1,10 +1,17 @@
 <script setup>
+import { onUnmounted } from "vue";
+
 defineProps({
   msg: {
     type: String,
     required: true,
   },
-})
+});
+
+onUnmounted(() => {
+  // Hàm này chạy khi component HelloWorld bị xóa khỏi cây DOM
+  console.log("Component unmounted");
+});
 </script>
 
 <template>

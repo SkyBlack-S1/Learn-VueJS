@@ -2,6 +2,7 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import TheWelcome from "../components/TheWelcome.vue";
+import HelloWorld from "@/components/HelloWorld.vue";
 
 const count = ref(10);
 
@@ -23,6 +24,8 @@ const products = ref([
 
 const todos = ref([]);
 
+const showHelloWorld = ref(true);
+
 const handChangeCategoryProduct = (value) => {
   categoryProduct.value = value;
 };
@@ -43,27 +46,10 @@ onMounted(() => {
 
 <template>
   <main>
-    <!-- <TheWelcome :countView="count" @handle-increase="handleIncrease" /> -->
-    {{ console.log("Template Render") }}
-    <button @click="handChangeCategoryProduct('food')">Hiển thị food</button>
-    <button @click="handChangeCategoryProduct('drink')">Hiển thị drink</button>
-    <div v-if="categoryProduct === 'food'">Danh sach Food</div>
-    <div v-else-if="categoryProduct === 'drink'">Danh sach Drink</div>
-
-    <div>
-      <div v-for="product in productsFilter">
-        <div>
-          <div>{{ product.name }} {{ product.price }}</div>
-        </div>
-      </div>
+    <div v-if="showHelloWorld">
+      <HelloWorld msg="Hello SkyBlack" />
     </div>
-    <!-- todos view -->
-    <div>
-      <h2>Todos</h2>
-      <div v-for="todo in todos">
-        <div>{{ todo.title }}</div>
-      </div>
-    </div>
+    <button @click="showHelloWorld = false">Remove Component HelloWorld</button>
   </main>
 </template>
 
