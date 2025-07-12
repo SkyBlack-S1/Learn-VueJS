@@ -1,6 +1,6 @@
 <!-- Parent -->
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import TheWelcome from "../components/TheWelcome.vue";
 import HelloWorld from "@/components/HelloWorld.vue";
 
@@ -41,6 +41,13 @@ onMounted(() => {
   fetch("https://jsonplaceholder.typicode.com/todos")
     .then((response) => response.json())
     .then((json) => (todos.value = json));
+  showHelloWorld.value = false;
+});
+
+watch([showHelloWorld, todos], (newValue, oldValue) => {
+  console.log("newValue:", newValue);
+  console.log("oldValue:", oldValue);
+  console.log("Todos has changed");
 });
 </script>
 
@@ -50,6 +57,7 @@ onMounted(() => {
       <HelloWorld msg="Hello SkyBlack" />
     </div>
     <button @click="showHelloWorld = false">Remove Component HelloWorld</button>
+    <button @click="showHelloWorld = true">Restore Component HelloWorld</button>
   </main>
 </template>
 
