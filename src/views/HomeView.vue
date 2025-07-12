@@ -1,6 +1,6 @@
 <!-- Parent -->
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import TheWelcome from "../components/TheWelcome.vue";
 
 const count = ref(10);
@@ -24,6 +24,12 @@ const products = ref([
 const handChangeCategoryProduct = (value) => {
   categoryProduct.value = value;
 };
+
+const productsFilter = computed(() => {
+  return products.value.filter(
+    (item) => item.category === categoryProduct.value
+  );
+});
 </script>
 
 <template>
@@ -31,30 +37,16 @@ const handChangeCategoryProduct = (value) => {
     <!-- <TheWelcome :countView="count" @handle-increase="handleIncrease" /> -->
     <button @click="handChangeCategoryProduct('food')">Hiển thị food</button>
     <button @click="handChangeCategoryProduct('drink')">Hiển thị drink</button>
-    <div v-if="categoryProduct === 'food'">
-      Danh sach Food
-      <div v-for="product in products">
-        <div v-if="product.category == 'food'">
-          {{ product.name }} - {{ product.price }}
-        </div>
-      </div>
-    </div>
-    <div v-else-if="categoryProduct === 'drink'">
-      Danh sach Drink
-      <div v-for="product in products">
-        <div v-if="product.category == 'drink'">
-          {{ product.name }} - {{ product.price }}
-        </div>
-      </div>
-    </div>
+    <div v-if="categoryProduct === 'food'">Danh sach Food</div>
+    <div v-else-if="categoryProduct === 'drink'">Danh sach Drink</div>
 
-    <!-- <div>
-      <div v-for="product in products">
+    <div>
+      <div v-for="product in productsFilter">
         <div>
           <div>{{ product.name }} {{ product.price }}</div>
         </div>
       </div>
-    </div> -->
+    </div>
   </main>
 </template>
 
