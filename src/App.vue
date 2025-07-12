@@ -1,6 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import HelloWorld from "./components/HelloWorld.vue";
+import { provide, ref } from "vue";
+const showHelloWorld = ref(0);
+provide("showHelloWorld", showHelloWorld);
 </script>
 
 <template>
@@ -23,6 +26,7 @@ import HelloWorld from "./components/HelloWorld.vue";
   </header>
 
   <RouterView />
+  <button @click="showHelloWorld++">Increase showHelloWorld</button>
 </template>
 
 <style scoped>

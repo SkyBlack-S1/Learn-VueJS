@@ -1,5 +1,5 @@
 <script setup>
-import { onUnmounted } from "vue";
+import { inject, onUnmounted } from "vue";
 
 defineProps({
   msg: {
@@ -7,6 +7,8 @@ defineProps({
     required: true,
   },
 });
+
+const showHelloWorld = inject("showHelloWorld");
 
 onUnmounted(() => {
   // Hàm này chạy khi component HelloWorld bị xóa khỏi cây DOM
@@ -23,6 +25,7 @@ onUnmounted(() => {
       <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
     </h3>
   </div>
+  <div>showHelloWorld: {{ showHelloWorld }}</div>
 </template>
 
 <style scoped>
