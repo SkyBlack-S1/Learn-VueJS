@@ -1,6 +1,6 @@
 <!-- Parent -->
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch, watchEffect } from "vue";
 import TheWelcome from "../components/TheWelcome.vue";
 import HelloWorld from "@/components/HelloWorld.vue";
 
@@ -41,13 +41,18 @@ onMounted(() => {
   fetch("https://jsonplaceholder.typicode.com/todos")
     .then((response) => response.json())
     .then((json) => (todos.value = json));
-  showHelloWorld.value = false;
+  // showHelloWorld.value = false;
 });
 
-watch([showHelloWorld, todos], (newValue, oldValue) => {
-  console.log("newValue:", newValue);
-  console.log("oldValue:", oldValue);
-  console.log("Todos has changed");
+// watch([showHelloWorld, todos], (newValue, oldValue) => {
+//   console.log("newValue:", newValue);
+//   console.log("oldValue:", oldValue);
+//   console.log("Todos has changed");
+// });
+
+watchEffect(() => {
+  console.log("showHelloWorld", showHelloWorld.value);
+  console.log("todos", todos.value);
 });
 </script>
 
